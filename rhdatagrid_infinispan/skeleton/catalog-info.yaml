@@ -18,8 +18,8 @@ metadata:
     - service-mesh-member
     - workshop
   links:
-    - url: https://console-openshift-console${{values.cluster_id}}/k8s/ns/${{values.namespace}}/clusterserviceversions/mongodb-atlas-kubernetes.v2.5.0/atlas.mongodb.com~v1~AtlasDeployment/${{values.component_id}}
-      title: MongoDB Instance Overview
+    - url: https://console-openshift-console${{values.cluster_id}}/k8s/ns/${{values.namespace}}/
+      title: Red Hat Data Grid Instance Overview
       icon: web
 spec:
   type: operator-instance
