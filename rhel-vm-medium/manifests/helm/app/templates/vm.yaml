@@ -33,11 +33,6 @@ spec:
           interfaces:
             - masquerade: {}
               name: default
-      nodeSelector:
-        node-role.kubernetes.io/metal: ''
-      tolerations:
-        - key: metal
-          operator: Exists
       networks:
         - name: default
           pod: {}
