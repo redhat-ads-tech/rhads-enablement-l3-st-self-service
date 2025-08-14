@@ -55,7 +55,7 @@ spec:
       input:
         sourcePath: ./source
         description: ${{parameters.description}}
-        repoUrl: 'gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}
+        repoUrl: 'gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}'
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public    

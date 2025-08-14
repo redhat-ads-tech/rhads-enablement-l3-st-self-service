@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: rhdatagrid-infinispan-instance
-  title: MongoDB Atlas
+  title: Red Hat Data Grid infinispan
   description: Build a Red Hat Data Grid infinispan instance in a specific namespace
   tags:
     - self-service
@@ -53,7 +53,7 @@ spec:
       input:
         sourcePath: ./source
         description: ${{parameters.description}}
-        repoUrl: 'gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}
+        repoUrl: 'gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}'
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public    
