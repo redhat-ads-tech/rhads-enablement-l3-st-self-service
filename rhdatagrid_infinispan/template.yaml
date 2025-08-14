@@ -9,27 +9,13 @@ metadata:
     - workshop
 spec:
   owner: architecture-team
-  type: opeator-instance
+  type: operator-instance
   parameters:
     - title: Provide information about the new component
       required:
-        - cluster_id
         - namespace
         - component_id
       properties:
-        cluster_id:
-          title: Select environments
-          type: array
-          items:
-            type: string
-            enum:
-              - .apps.cluster-qa.qa.sandboxxx.opentlc.com
-              - .apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com
-            enumNames:
-              - qa-cluster-infra
-              - dev-cluster-infra
-          uniqueItems: true
-          ui:widget: checkboxes
         namespace: 
           title: Namespace
           type: string
@@ -41,6 +27,11 @@ spec:
           type: string
           description: Comp Id
   steps:
+    - id: fetch-provision-data
+      name: Fetch Provision Data
+      action: catalog:fetch
+      input:
+        entityRef: component:default/provisioning-data
     - id: templateSource
       name: Generating the source code component
       action: fetch:template
@@ -49,10 +40,10 @@ spec:
         targetPath: ./source
         values:
           owner: ${{ user.entity.metadata.name }}
-          cluster_id: ${{parameters.cluster_id}}
           namespace: ${{parameters.namespace}}
           component_id: ${{parameters.component_id}}
-          host: gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com
+          cluster_id: ${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}
+          host: gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}
           repoName: ${{parameters.component_id}}
           user_id: ${{ user.entity.metadata.name }}
           destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}
@@ -62,7 +53,7 @@ spec:
       input:
         sourcePath: ./source
         description: ${{parameters.description}}
-        repoUrl: gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}
+        repoUrl: 'gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public    
@@ -73,7 +64,7 @@ spec:
         repoContentsUrl: ${{steps.publishSource.output.repoContentsUrl}}
         catalogInfoPath: /catalog-info.yaml
     - id: templateGitops
-      name: Generating the deployment resources and artefacts
+      name: Generating the deployment resources and artifacts
       action: fetch:template
       input:
         url: ./manifests
@@ -81,11 +72,11 @@ spec:
         values:
           component_id: ${{parameters.component_id}}
           description: ${{parameters.description}}
-          destination:  https://gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
-          source_repository: https://gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com/${{ user.entity.metadata.name }}}/${{parameters.component_id}}.git
+          destination:  https://gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
+          source_repository: https://gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}/${{ user.entity.metadata.name }}}/${{parameters.component_id}}.git
           repository_name: ${{parameters.component_id}}
-          git_host: gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com
-          cluster: ${{parameters.cluster_id}}
+          git_host: gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}
+          cluster: ${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}
           namespace: ${{parameters.namespace}}
           user_id: ${{ user.entity.metadata.name }}
         targetPath: ./tenant-gitops
@@ -93,7 +84,7 @@ spec:
       name: Publishing to Deployment Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}-gitops
+        repoUrl: gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}-gitops
         title: gitops resources for ${{parameters.namespace}}-gitops
         description: gitops resources for ${{parameters.namespace}}-gitops
         sourcePath: ./tenant-gitops
@@ -107,7 +98,7 @@ spec:
         appName: ${{parameters.component_id}}-gitops
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://gitlab-gitlab.apps.cluster-aaaa.aaaa.sandboxxxxx.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
+        repoUrl: https://gitlab-gitlab.${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
         path: 'argocd/'
   output:
     links:
