@@ -3,8 +3,9 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: ${{values.component_id}}-repo
-  namespace: janus-argocd
+  namespace: tssc-gitops
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
   url: ${{values.destination}}
+
