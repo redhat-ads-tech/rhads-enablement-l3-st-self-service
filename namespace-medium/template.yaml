@@ -9,7 +9,7 @@ metadata:
     - workshop
     - self-service
 spec:
-  owner: architecture-team
+  owner: tssc
   type: project
 
   parameters:

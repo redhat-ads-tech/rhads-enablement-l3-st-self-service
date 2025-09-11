@@ -8,7 +8,7 @@ metadata:
     - self-service
     - workshop
 spec:
-  owner: architecture-team
+  owner: tssc
   type: operator-instance
   parameters:
     - title: Provide information about the new component
