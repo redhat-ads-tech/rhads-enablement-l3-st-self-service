@@ -17,17 +17,17 @@ metadata:
     - vm
     - workshop
   links:
-    - url: https://console-openshift-console${{values.cluster_id}}/k8s/ns/${{values.namespace}}/kubevirt.io~v1~VirtualMachine/${{values.component_id}}
+    - url: https://console-openshift-console.${{values.cluster_id}}/k8s/ns/${{values.namespace}}/kubevirt.io~v1~VirtualMachine/${{values.component_id}}
       title: Virtual Machine
       icon: web
-    - url: https://console-openshift-console${{values.cluster_id}}/k8s/ns/${{values.namespace}}/kubevirt.io~v1~VirtualMachine/${{values.component_id}}/console/standalone
+    - url: https://console-openshift-console.${{values.cluster_id}}/k8s/ns/${{values.namespace}}/kubevirt.io~v1~VirtualMachine/${{values.component_id}}/console/standalone
       title: VNC console
       icone: web
 
 spec:
   type: service
   lifecycle: production
-  owner: ${{values.owner | dump}}
+  owner: tssc
   system: workshop-system-${{values.namespace}}
 ---
 apiVersion: backstage.io/v1alpha1
@@ -40,4 +40,4 @@ metadata:
     - openshift
     - workshop
 spec:
-  owner: ${{values.owner | dump}}
+  owner: tssc

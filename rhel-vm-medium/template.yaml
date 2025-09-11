@@ -1,7 +1,7 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: rhel9-vm-medium-template-v
+  name: rhel9-vm-medium-template
   title: RHEL9 VM Medium Template.
   description: creates a RHEL9 VM Medium.
   tags:
@@ -9,7 +9,7 @@ metadata:
     - workshop
     - self-service
 spec:
-  owner: legacy-backend-team
+  owner: tssc
   type: VM
   parameters:
     - title: Provide Information for the VM
