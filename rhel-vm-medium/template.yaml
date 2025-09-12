@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: rhel9-vm-medium-template
-  title: RHEL9 VM Medium Template.
-  description: creates a RHEL9 VM Medium.
+  title: RHEL9 VM Medium Template
+  description: creates a RHEL9 VM Medium
   tags:
     - vm
     - workshop
