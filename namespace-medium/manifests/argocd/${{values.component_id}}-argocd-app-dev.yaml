@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ${{values.component_id}}
-  namespace: tssc-gitops
+  namespace: openshift-gitops
   labels:
     argocd/app-name: ${{values.component_id}}
   annotations:
@@ -22,7 +22,7 @@ spec:
   syncPolicy:
     managedNamespaceMetadata:
       labels: 
-        argocd.argoproj.io/managed-by: tssc-gitops
+        argocd.argoproj.io/managed-by: openshift-gitops
     automated: 
       prune: true
       selfHeal: true
