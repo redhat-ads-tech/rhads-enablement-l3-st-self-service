@@ -16,7 +16,9 @@ spec:
       required:
         - component_id
         - namespace
+        # UPDATE: Add other required parameters here
       properties:
+        # UPDATE: Add new properties here
         component_id:
           title: Name
           type: string
@@ -52,6 +54,8 @@ spec:
           repoName: ${{parameters.component_id}}
           user_id: rhdh
           destination: rhdh/${{ parameters.component_id }}
+          # UPDATE: Add new source values here
+          
     - id: publishSource
       name: Publish
       action: publish:gitlab
@@ -83,6 +87,8 @@ spec:
           cluster: ${{ steps["fetch-provision-data"].output.entity.metadata.labels["ocp-apps-domain"] }}
           namespace: ${{parameters.namespace}}
           user_id: rhdh
+          # UPDATE: Add new Gitops values here
+
         targetPath: ./tenant-gitops
     - id: publishGitops
       name: Publishing to Deployment Resource Repository
