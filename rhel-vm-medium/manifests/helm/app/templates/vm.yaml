@@ -12,6 +12,7 @@ spec:
       spec:
         sourceRef:
           kind: DataSource
+          # UPDATE to paramaterize the RHEL version
           name: rhel9
           namespace: openshift-virtualization-os-images
         storage:
@@ -21,6 +22,7 @@ spec:
   instancetype:
     name: u1.medium
   preference:
+    # UPDATE to paramaterize the RHEL version
     name: rhel.9
   runStrategy: Always
   template:
