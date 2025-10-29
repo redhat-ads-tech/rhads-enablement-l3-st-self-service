@@ -13,6 +13,7 @@ metadata:
     backstage.io/techdocs-ref: url:https://${{values.host}}/${{values.destination}}
     backstage.io/source-location: url:https://${{values.host}}/${{values.destination}}
     gitlab.com/project-slug: ${{values.destination}}
+    argocd/instance-name: cluster-argocd
   tags:
     - operator-instance
     - service-mesh-member
