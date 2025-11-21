@@ -6,7 +6,7 @@ metadata:
   namespace: openshift-gitops
   labels:
     argocd/app-name: ${{values.component_id}}
-    rht-gitops.com/${{values.namespace}}: ${{values.component_id}}
+    rht-gitops.com/openshift-gitops: ${{values.component_id}}-gitops
   annotations:
     argocd/app-name: ${{values.component_id}}
   finalizers:
